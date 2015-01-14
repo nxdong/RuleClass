@@ -7,13 +7,15 @@
 using namespace std;
 int main()
 {
+	singlerule srule;
+	srule.InsertLeftRule(L"F");
+	srule.InsertRightRule(L"FAF", 0.1);
+	srule.InsertRightRule(L"FBF", 0.9);
+	//srule.InsertRightRule(L"FCF", 0.4);
 	CRules testRule;
-	//testRule.InsertRule(L"F", L"F[+F]F[-F]F");
-	testRule.InsertRule(L"F", L"FSC");
-	testRule.InsertRule(L"S", L"s");
-	testRule.InsertRule(L"C", L"ScF");
+	testRule.InsertRule(srule);
 	CProduce pro(L"F",testRule);
-	pro.SetDegree(3);
+	pro.SetDegree(4);
 	wcout << pro.getResult()<< endl;
 	system("pause");
 }

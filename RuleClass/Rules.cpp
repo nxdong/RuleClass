@@ -11,32 +11,29 @@ CRules::~CRules()
 }
 int CRules::Fresh()
 {
-	m_leftRule.clear();
-	m_rightRule.clear();
+	m_rules.clear();
 	m_nRules = 0;
 	return FRESH_SUCESS;
 }
-int CRules::InsertRule(wstring const &lrule, wstring const &rrule)
+int CRules::InsertRule(singlerule const &rule)
 {
-	m_leftRule.push_back(lrule);
-	m_rightRule.push_back(rrule);
+	m_rules.push_back(rule);
 	m_nRules += 1;
+	if (m_rules.empty() == 0)return INSERT_ERR;
 	return INSERT_SUCESS;
-
-	if (lrule.empty() == 0 || rrule.empty() == 0)return INSERT_ERR;
 
 }
 
 int CRules::MatchRule(wstring const lrule, wstring &retstr) const
 {
 	if (lrule.empty())	return MATCH_ERR;
-	size_t nRulesNum = m_leftRule.size();		// 规则总数
+	size_t nRulesNum = m_rules.size();		// 规则总数
 	size_t pos = 0;								// 匹配规则位置
 	for (size_t pos = 0; pos < nRulesNum; pos++)
 	{
-		if (m_leftRule[pos] == lrule)
+		if (m_rules[pos].getLeftRule() == lrule)
 		{
-			retstr = m_rightRule[pos];
+			retstr = m_rules[pos].getRightRule();
 			return MATCH_SUCCESS;
 		}
 	}
